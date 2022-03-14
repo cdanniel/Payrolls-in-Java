@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package practica1;
 
 import DAO.CategoriasDAO;
@@ -10,7 +5,9 @@ import DAO.EmpresasDAO;
 import DAO.NominaDAO;
 import DAO.TrabajadorDAO;
 import POJOS.Empresas;
+import POJOS.Nomina;
 import POJOS.Trabajadorbbdd;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,6 +18,8 @@ import java.util.Scanner;
 public class Practica1 {
     
     public static void main(String[] args) {
+        
+        //P1254785I
         
         CategoriasDAO daoCategorias = new CategoriasDAO();
         EmpresasDAO daoEmpresas  = new EmpresasDAO();
@@ -44,11 +43,47 @@ public class Practica1 {
             listaTrabajadores.get(i).getNifnie() + " " + listaTrabajadores.get(i).getCategorias().getNombreCategoria() + " " + listaTrabajadores.get(i).crearListaNominas().size());
             
         }
-                
-                
-            
-             
+        double mediaNominas = mediaNominas(listaTrabajadores);
+        System.out.println("La media de las nominas es " + mediaNominas);
         
+        List<Nomina> listaNominas = listaNominasSuperioresMedia(mediaNominas, listaTrabajadores);
+        
+        for(int j = 0; j < listaNominas.size(); j++){
+            System.out.println(listaNominas.get(j).getBrutoNomina());
+        }
+            
+    }
+    
+    
+    public static double mediaNominas(List<Trabajadorbbdd> listaTrabajadores){
+        double media = 0;
+        int cont = 0;
+        for(int i = 0; i < listaTrabajadores.size(); i++){
+            List<Nomina> listaNominas = listaTrabajadores.get(i).crearListaNominas();
+            for(int j = 0; j < listaNominas.size(); j++){
+                media = media + listaNominas.get(j).getBrutoNomina();
+                cont++;
+            }
+        }
+        
+        media = media/cont;
+        
+        return media;
+    }
+    
+    
+    public static List<Nomina> listaNominasSuperioresMedia(double media, List<Trabajadorbbdd> listaTrabajadores){
+        List<Nomina> listaNominas = new ArrayList<Nomina>();
+        
+        for(int i = 0; i < listaTrabajadores.size(); i++){
+            for(int j = 0; j < listaTrabajadores.get(i).crearListaNominas().size(); j++){
+                if(listaTrabajadores.get(i).crearListaNominas().get(j).getBrutoNomina() > media){
+                    listaNominas.add(listaTrabajadores.get(i).crearListaNominas().get(j));
+                }   
+            }
+        }
+        
+        return listaNominas;
     }
     
 }
