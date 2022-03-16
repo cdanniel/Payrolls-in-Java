@@ -20,6 +20,7 @@ import modelo.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -63,6 +64,31 @@ public class EmpresasDAO {
         empresa = (Empresas) query.list().get(0);
         
         return empresa;
+    }
+    
+    public void actualizarNombreEmpresas(String CIF){
+        
+        SessionFactory sf = null;
+        Session sesion = null;
+        Transaction tx;
+        
+        sf = HibernateUtil.getSessionFactory();
+        sesion = sf.openSession();
+        
+        String consultaCIF = "SELECT e FROM Empresas e";
+        Query sentencia = sesion.createQuery(consultaCIF);
+        
+        List<Empresas> empresas = sentencia.list();
+        for(Empresas emp:empresas){
+            if(!(emp.getCif().equals(CIF))){
+            String nombre =emp.getNombre();
+
+            emp.setNombre(nombre + "2022");
+            tx = sesion.beginTransaction();
+            sesion.saveOrUpdate(emp);
+            tx.commit();
+            }
+        }
     }
     
 }

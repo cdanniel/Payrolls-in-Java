@@ -43,13 +43,33 @@ public class Practica1 {
             listaTrabajadores.get(i).getNifnie() + " " + listaTrabajadores.get(i).getCategorias().getNombreCategoria() + " " + listaTrabajadores.get(i).crearListaNominas().size());
             
         }
+        
+        //Ejercicio 2
+        /*
+        listadoEmpresas.removeAll(listadoEmpresas);
+        
+        daoEmpresas.actualizarNombreEmpresas(CIF);
+        listadoEmpresas = daoEmpresas.listaEmpresas();
+        System.out.println("Empresas actualizadas");
+        for(Empresas emp:listadoEmpresas){
+            System.out.println(emp.getNombre());
+        }
+        */
+        //Ejercicio 3
+        
         double mediaNominas = mediaNominas(listaTrabajadores);
         System.out.println("La media de las nominas es " + mediaNominas);
         
-        List<Nomina> listaNominas = listaNominasSuperioresMedia(mediaNominas, listaTrabajadores);
-        
-        for(int j = 0; j < listaNominas.size(); j++){
-            System.out.println(listaNominas.get(j).getBrutoNomina());
+        List<Nomina> listaNominasSuperiores = listaNominasSuperioresMedia(mediaNominas, listaTrabajadores);
+        List<Nomina> listaNominasInferiores = listaNominasInferioresMedia(mediaNominas, listaTrabajadores);
+        System.out.println("Nominas superiores");
+        for(int j = 0; j < listaNominasSuperiores.size(); j++){
+            System.out.println(listaNominasSuperiores.get(j).getBrutoNomina());
+        }
+        System.out.println("Nominas inferiores");
+        for(int j = 0; j < listaNominasInferiores.size(); j++){
+            System.out.println(listaNominasInferiores.get(j).getBrutoNomina());
+            //Llamada el metodo que las borra
         }
             
     }
@@ -78,6 +98,20 @@ public class Practica1 {
         for(int i = 0; i < listaTrabajadores.size(); i++){
             for(int j = 0; j < listaTrabajadores.get(i).crearListaNominas().size(); j++){
                 if(listaTrabajadores.get(i).crearListaNominas().get(j).getBrutoNomina() > media){
+                    listaNominas.add(listaTrabajadores.get(i).crearListaNominas().get(j));
+                }   
+            }
+        }
+        
+        return listaNominas;
+    }
+    
+    public static List<Nomina> listaNominasInferioresMedia(double media, List<Trabajadorbbdd> listaTrabajadores){
+        List<Nomina> listaNominas = new ArrayList<Nomina>();
+        
+        for(int i = 0; i < listaTrabajadores.size(); i++){
+            for(int j = 0; j < listaTrabajadores.get(i).crearListaNominas().size(); j++){
+                if(listaTrabajadores.get(i).crearListaNominas().get(j).getBrutoNomina() < media){
                     listaNominas.add(listaTrabajadores.get(i).crearListaNominas().get(j));
                 }   
             }
