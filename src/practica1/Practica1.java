@@ -20,7 +20,7 @@ public class Practica1 {
     public static void main(String[] args) {
         
         //P1254785I
-        
+        /*
         CategoriasDAO daoCategorias = new CategoriasDAO();
         EmpresasDAO daoEmpresas  = new EmpresasDAO();
         NominaDAO daoNomina = new NominaDAO();
@@ -45,16 +45,17 @@ public class Practica1 {
         }
         
         //Ejercicio 2
-        /*
+        
         listadoEmpresas.removeAll(listadoEmpresas);
         
         daoEmpresas.actualizarNombreEmpresas(CIF);
         listadoEmpresas = daoEmpresas.listaEmpresas();
+        /*
         System.out.println("Empresas actualizadas");
         for(Empresas emp:listadoEmpresas){
             System.out.println(emp.getNombre());
         }
-        */
+        
         //Ejercicio 3
         
         double mediaNominas = mediaNominas(listaTrabajadores);
@@ -62,18 +63,36 @@ public class Practica1 {
         
         List<Nomina> listaNominasSuperiores = listaNominasSuperioresMedia(mediaNominas, listaTrabajadores);
         List<Nomina> listaNominasInferiores = listaNominasInferioresMedia(mediaNominas, listaTrabajadores);
+        /*
         System.out.println("Nominas superiores");
         for(int j = 0; j < listaNominasSuperiores.size(); j++){
             System.out.println(listaNominasSuperiores.get(j).getBrutoNomina());
         }
+        
         System.out.println("Nominas inferiores");
+        
         for(int j = 0; j < listaNominasInferiores.size(); j++){
-            System.out.println(listaNominasInferiores.get(j).getBrutoNomina());
-            //Llamada el metodo que las borra
+            //System.out.println("El bruto es: " + listaNominasInferiores.get(j).getBrutoNomina() + " y el id es" + listaNominasInferiores.get(j).getIdNomina());
+            daoNomina.NominasMenores(listaNominasInferiores.get(j).getIdNomina());
         }
+        
+        */
+        
+        ExcelManager managerExcell = new ExcelManager();
+        List<String> listadoDNI =  new ArrayList<String>();
+        listadoDNI =  managerExcell.sacarDNI();
+        System.out.println(listadoDNI.toString());
             
     }
     
+    public List<String> validarDNI(List<String> listadoDNI){
+        List<String> listadoDNIMal = new ArrayList<String>();
+        
+        for(int i = 0; i < listadoDNI.size(); i++){
+            //getIndex(i).charAt(x);
+        }
+        return listadoDNIMal;
+    }
     
     public static double mediaNominas(List<Trabajadorbbdd> listaTrabajadores){
         double media = 0;
